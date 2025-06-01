@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test POST Request (JSON)</title>
+</head>
+<body>
+  <h1>Test POST Request (JSON)</h1>
+  <textarea id="jsonData" rows="15" cols="100">
+{
+  "dashboard_id": "1",
+  "rows": [
+    [
+      "Juan Dela Cruz",
+      "123456789",
+      "Male",
+      "2008-05-12",
+      "Present",
+      "Complete",
+      "Absent",
+      "Verified",
+      "Eligible",
+      "To Follow",
+      "None",
+      "id_picture_juan.jpg",
+      "sf9_copy_juan.pdf",
+      "psa_juan.pdf",
+      "sf9_original_juan.pdf",
+      "Scanned",
+      "sf10_juan.pdf"
+    ]
+  ]
+}
+  </textarea>
+  <br>
+  <button onclick="sendJson()">Send POST Request</button>
+
+  <pre id="response"></pre>
+
+  <script>
+    function sendJson() {
+      const jsonData = document.getElementById("jsonData").value;
+
+      fetch('save_dashboard_data.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: jsonData
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById('response').textContent = 'Error: ' + error;
+      });
+    }
+  </script>
+</body>
+</html>
